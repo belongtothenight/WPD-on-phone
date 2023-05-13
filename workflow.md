@@ -1,6 +1,6 @@
 # workflow
 
-List out what this program does.
+## List out what this program does.
 
 1. initializing
    1. setup serial communication
@@ -33,4 +33,9 @@ List out what this program does.
    8. send data via internet connection (udp) if needed
    9. handles key events
 
+## Tasks
 
+- [x] access camera
+- [ ] familiar with dart
+- [ ] access to cv2 or its replacement
+- [ ] load cascade classifier xml file
