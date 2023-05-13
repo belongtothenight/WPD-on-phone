@@ -34,11 +34,16 @@ dependencies:
   path_provider:
   path:
   opencv_4: ^1.0.0
-
+  google_ml_kit: ^0.14.0
+  image: ^4.0.17
+  camera_camera: ^3.0.0-dev
+  ffi: ^2.0.2
+  fftea: ^1.3.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  
 
 dev_dependencies:
   flutter_test:

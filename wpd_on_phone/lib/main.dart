@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-
 import 'package:opencv_4/opencv_4.dart';
+import 'package:image/image.dart' as img;
 
 import 'processors_noopenmdao.dart';
 
@@ -21,7 +21,7 @@ Future<void> main() async {
 
   var processor = FindFaceGetPulse();
   print(processor.frameIn);
-  processor.initialize();
+  processor.run();
 
   runApp(
     MaterialApp(
@@ -105,10 +105,11 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             // Attempt to take a picture and get the file `image`
             // where it was saved.
             final image = await _controller.takePicture();
+            final path = image.path;
+            final bytes = await File(path).readAsBytes();
+            final img.Image image = img.decodeImage(bytes);
 
             if (!mounted) return;
-
-            print('picture taken');
           } catch (e) {
             // If an error occurs, log the error to the console.
             print(e);

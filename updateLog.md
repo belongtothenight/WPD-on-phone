@@ -11,3 +11,11 @@
    3. Search for "1.3.50" for initial specified kotlin version.
    4. Change it to "1.7.10". (currently default for flutter, 20230513)
 7. Encounter problem with opencv_4 in flutter doesn't support cascade classifier.
+   1. opencv on dart is a lot less powerful than expected, only bare minimum function are presented.
+   2. use [google_ml_kit](https://pub.dev/packages/google_ml_kit) instead.
+8. Encounter problem with no similar library as "numpy" in dart.
+   1. Use several different packages like [fftea](https://pub.dev/packages/fftea), [image](https://pub.dev/packages/image)
+9. Flutter camera photo taking example is not applicable in our usage.
+   1. Follow guide [Capture photos from Camera using Image Stream with Flutter](https://medium.com/@hugand/capture-photos-from-camera-using-image-stream-with-flutter-e9af94bc2bee).
+   2. Use [camera_camera](https://pub.dev/packages/camera_camera) to replace [camera](https://pub.dev/packages/camera) in order to capture image stream.
+   3. With the new package, image will no longer be stored in drive first but memory.

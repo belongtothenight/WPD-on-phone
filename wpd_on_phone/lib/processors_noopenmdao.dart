@@ -1,4 +1,5 @@
 import 'package:opencv_4/opencv_4.dart';
+import 'package:google_ml_kit/google_ml_kit.dart';
 
 import 'config.dart';
 import 'dart:io';
@@ -22,15 +23,15 @@ class FindFaceGetPulse {
   final t0 = DateTime.now();
   var bpms = [];
   var bpm = 0;
-  final dpath = Config.dpath;
-  var classifierFile = File(Config.dpath);
-  // var face_cascade = Cv2.CascadeClassifier();
+  var faceRect = Config.faceRect;
+  var lastCenter = [0, 0];
+  var lastWH = [0, 0];
+  var outputDim = 13;
+  var trained = false;
+  var idx = 1;
+  var findFaces = true;
 
-  void initialize() {
-    if (classifierFile.existsSync()) {
-      print('Classifier file found.');
-    } else {
-      print('Classifier file not found.');
-    }
+  void run() async {
+    // this.frameIn = frameIn;
   }
 }

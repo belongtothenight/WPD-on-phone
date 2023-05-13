@@ -9,3 +9,5 @@ This repo is based on [thearn/webcam-pulse-detector](https://github.com/thearn/w
 3. [Flutter Basic Training - 12 Minute Bootcamp](https://www.youtube.com/watch?v=1xipg02Wu8s)
 4. [Flutter in 100 seconds](https://youtu.be/lHhRhPV--G0)
 5. [OpenCV Cascade Classifier](https://docs.opencv.org/3.4/db/d28/tutorial_cascade_classifier.html)
+6. [Computer Vision with ML Kit - Flutter In Focus](https://www.youtube.com/watch?v=ymyYUCrJnxU)
+7. [Capture photos from Camera using Image Stream with Flutter](https://medium.com/@hugand/capture-photos-from-camera-using-image-stream-with-flutter-e9af94bc2bee)
