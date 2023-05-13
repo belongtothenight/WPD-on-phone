@@ -47,5 +47,9 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Getting real-time image data for analyzing.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Getting real-time image data for analyzing.</string>
 </dict>
 </plist>
