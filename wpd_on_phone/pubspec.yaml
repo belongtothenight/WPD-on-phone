@@ -33,6 +33,7 @@ dependencies:
   camera:
   path_provider:
   path:
+  opencv_4: ^1.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
