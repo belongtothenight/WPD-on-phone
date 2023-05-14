@@ -37,5 +37,6 @@
 
 - [x] access camera
 - [x] familiar with dart
-- [x] access to cv2 or its replacement
+- [ ] build app for video recording, selecting, uploading.
+- [ ] build server for video receiving, processing, data exporting.
 
