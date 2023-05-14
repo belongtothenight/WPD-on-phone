@@ -19,3 +19,7 @@
    1. Follow guide [Capture photos from Camera using Image Stream with Flutter](https://medium.com/@hugand/capture-photos-from-camera-using-image-stream-with-flutter-e9af94bc2bee).
    2. Use [camera_camera](https://pub.dev/packages/camera_camera) to replace [camera](https://pub.dev/packages/camera) in order to capture image stream.
    3. With the new package, image will no longer be stored in drive first but memory.
+   4. Use [ffi](https://pub.dev/packages/ffi) to gain access of low level control, like image or audio processing.
+10. Change methodology to offline processing.
+    1. Abandon following packages, "google_ml_kit", "camera_camera", "ffi", "opencv_4".
+    2. Remove following files, "processors_noopenmdao.dart".

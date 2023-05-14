@@ -36,6 +36,6 @@
 ## Tasks
 
 - [x] access camera
-- [ ] familiar with dart
-- [ ] access to cv2 or its replacement
-- [ ] load cascade classifier xml file
+- [x] familiar with dart
+- [x] access to cv2 or its replacement
+
