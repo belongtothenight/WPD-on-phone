@@ -36,6 +36,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       widget.camera,
       // Define the resolution to use.
       ResolutionPreset.medium,
+      enableAudio: false,
     );
 
     // Next, initialize the controller. This returns a Future.
@@ -156,31 +157,31 @@ class TakePictureScreenState extends State<TakePictureScreen> {
         },
         child: const Icon(Icons.videocam_rounded),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.play_arrow_rounded,
-              color: Colors.blue,
-            ),
-            label: "Player",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.camera_alt_rounded,
-              color: Colors.blue,
-            ),
-            label: "Camera",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.settings_rounded,
-              color: Colors.blue,
-            ),
-            label: "Settings",
-          ),
-        ],
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(
+      //         Icons.play_arrow_rounded,
+      //         color: Colors.blue,
+      //       ),
+      //       label: "Player",
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(
+      //         Icons.camera_alt_rounded,
+      //         color: Colors.blue,
+      //       ),
+      //       label: "Camera",
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(
+      //         Icons.settings_rounded,
+      //         color: Colors.blue,
+      //       ),
+      //       label: "Settings",
+      //     ),
+      //   ],
+      // ),
     );
   }
 }

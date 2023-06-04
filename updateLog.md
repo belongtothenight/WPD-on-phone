@@ -32,3 +32,6 @@
     1. Remove original version of data, only leaves bpm data in column 1.
 15. Add custom record length functionality.
 16. Update documentation.
+17. Remove not needed components.
+    1. Audio while recording.
+    2. Bottom navigation bar.
