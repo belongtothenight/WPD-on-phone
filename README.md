@@ -11,3 +11,11 @@ This repo is based on [thearn/webcam-pulse-detector](https://github.com/thearn/w
 5. [OpenCV Cascade Classifier](https://docs.opencv.org/3.4/db/d28/tutorial_cascade_classifier.html)
 6. [Computer Vision with ML Kit - Flutter In Focus](https://www.youtube.com/watch?v=ymyYUCrJnxU)
 7. [Capture photos from Camera using Image Stream with Flutter](https://medium.com/@hugand/capture-photos-from-camera-using-image-stream-with-flutter-e9af94bc2bee)
+
+## Structure
+
+1. "./processVideo": BPM extracting script.
+2. "./result": Extracted BPM data.
+3. "./server": Server to receive videos for BPM extraction.
+4. "./videos": Videos for BPM extraction.
+5. "./wpd_on_phone": App to record and send video.

@@ -31,3 +31,4 @@
 14. Able to obtain BPM record from video file. It will be written in column 3.
     1. Remove original version of data, only leaves bpm data in column 1.
 15. Add custom record length functionality.
+16. Update documentation.

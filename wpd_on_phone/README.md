@@ -14,3 +14,9 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## Commands
+
+1. "flutter run" to debug, with both real and emulated devices.
+2. "flutter pub add <libary_name>" to install dependancy.
+3. "flutter build apk --build-name=<version> --build-number=<num>" to build apk.
