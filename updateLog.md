@@ -28,3 +28,5 @@
     1. Unable to connect to it from another machine within the same network.
     2. Focus on file processing first.
 13. Able to obtain pulse from video file.
+14. Able to obtain BPM record from video file. It will be written in column 3.
+    1. Remove original version of data, only leaves bpm data in column 1.

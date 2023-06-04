@@ -7,6 +7,7 @@ import cv2
 import argparse
 import numpy as np
 import datetime
+import os
 
 # TODO: work on serial port comms, if anyone asks for it
 # from serial import Serial
@@ -99,15 +100,20 @@ class getPulseApp(object):
             self.selected_cam += 1
             self.selected_cam = self.selected_cam % len(self.cameras)
 
-    def write_csv(self):
+    def write_csv(self, basepath):
         """
         Writes current data to a csv file
         """
         fn = "Webcam-pulse" + str(datetime.datetime.now())
         fn = fn.replace(":", "_").replace(".", "_")
-        data = np.vstack((self.processor.times, self.processor.samples)).T
-        np.savetxt(fn + ".csv", data, delimiter=",")
-        print("Writing csv")
+        # data = np.vstack(
+        #     (self.processor.times, self.processor.samples)
+        # ).T
+        # np.savetxt(fn + ".csv", data, delimiter=",")
+        np.savetxt(
+            os.path.join(basepath, fn + ".csv"), self.processor.bpms, delimiter=","
+        )
+        print("Writed csv")
 
     def toggle_search(self):
         """
@@ -236,10 +242,14 @@ if __name__ == "__main__":
     l2_flag = False
 
     while success:
-        App.main_loop(frame)
-        success, image = vidcap.read()
+        success, frame = vidcap.read()
         count += 1
-        print("Read a new frame: ", success)
+        # print("Read a new frame: ", success)
+        print(f"Frame: {count}  ", end="\r")
+        try:
+            App.main_loop(frame)
+        except Exception as e:
+            print(e)
 
         if count > config.frame_l1:
             if not l1_flag:
@@ -256,5 +266,5 @@ if __name__ == "__main__":
                     l2_flag = True
                 except:
                     l2_flag = False
-
-    App.write_csv()
+    print()
+    App.write_csv(config.savePath)
