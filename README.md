@@ -2,6 +2,15 @@
  
 This repo is based on [thearn/webcam-pulse-detector](https://github.com/thearn/webcam-pulse-detector/tree/no_openmdao).
 
+## Structure
+
+1. "./processVideo": BPM extracting script.
+2. "./result": Extracted BPM data.
+3. "./server": Server to receive videos for BPM extraction.
+4. "./videos": Videos for BPM extraction.
+5. "./wpd_on_phone": App to record and send video.
+6. "./wpd_on_phone/build/app/outputs/apk/release/app-release.apk": Fresh build APK.
+
 ## Links
 
 1. [Learn The Dart Programming Language - Complete Free Course!](https://www.youtube.com/watch?v=JZukfxvc7Mc)
@@ -12,10 +21,3 @@ This repo is based on [thearn/webcam-pulse-detector](https://github.com/thearn/w
 6. [Computer Vision with ML Kit - Flutter In Focus](https://www.youtube.com/watch?v=ymyYUCrJnxU)
 7. [Capture photos from Camera using Image Stream with Flutter](https://medium.com/@hugand/capture-photos-from-camera-using-image-stream-with-flutter-e9af94bc2bee)
 
-## Structure
-
-1. "./processVideo": BPM extracting script.
-2. "./result": Extracted BPM data.
-3. "./server": Server to receive videos for BPM extraction.
-4. "./videos": Videos for BPM extraction.
-5. "./wpd_on_phone": App to record and send video.
