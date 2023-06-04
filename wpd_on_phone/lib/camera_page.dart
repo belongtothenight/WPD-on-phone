@@ -1,6 +1,10 @@
+import 'package:archive/archive_io.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:gallery_saver/gallery_saver.dart';
+// import 'package:path/path.dart';
+// import 'package:file_picker/file_picker.dart';
+import 'package:archive/archive.dart';
 import 'dart:io';
 import 'config.dart';
 // A screen that allows users to take a picture using a given camera.
@@ -79,23 +83,36 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             setState(() {
               _titleMessage = Config.message_recording;
             });
-            for (var i = 0; i < Config.sleepTime; i++) {
+            for (var i = 0; i < Config.recordTime; i++) {
               setState(() {
                 _titleMessage =
-                    "${Config.message_recording} ${Config.sleepTime - i}";
+                    "${Config.message_recording} ${Config.recordTime - i}";
               });
               await Future.delayed(const Duration(seconds: 1));
             }
-            final video = await _controller.stopVideoRecording();
+            final _video = await _controller.stopVideoRecording();
             setState(() {
               _titleMessage = Config.message_stopped;
             });
-            await GallerySaver.saveVideo(video.path);
+            await GallerySaver.saveVideo(_video.path);
             setState(() {
-              _titleMessage = Config.message_saved;
+              _titleMessage = Config.message_sending;
             });
-            File(video.path).deleteSync();
-            await Future.delayed(const Duration(seconds: 1));
+
+            // final String fileName = _video.path.split("/").last;
+            // _channel.sink.add(fileName);
+            // final int fileSize = await _video.length();
+            // _channel.sink.add(fileSize);
+            // final _encoder = ZipFileEncoder();
+            // _encoder.create(_video.path + ".zip");
+            // _encoder.addFile(File(_video.path));
+            // _encoder.close();
+            // _channel.sink.add(File(_video.path + ".zip").readAsBytesSync());
+            Socket _socket = await Socket.connect(
+                Config.serverIP, Config.serverPort,
+                timeout: const Duration(seconds: Config.serverTimeout));
+
+            File(_video.path).deleteSync();
             setState(() {
               _titleMessage = Config.defaultAppBarTitle;
             });
