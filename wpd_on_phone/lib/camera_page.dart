@@ -1,10 +1,9 @@
-import 'package:archive/archive_io.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 // import 'package:path/path.dart';
 // import 'package:file_picker/file_picker.dart';
-import 'package:archive/archive.dart';
+// import 'package:archive/archive.dart';
 import 'dart:io';
 import 'config.dart';
 // A screen that allows users to take a picture using a given camera.
@@ -24,7 +23,8 @@ class TakePictureScreen extends StatefulWidget {
 class TakePictureScreenState extends State<TakePictureScreen> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
-  String _titleMessage = Config.defaultAppBarTitle;
+  static int _recordTime = Config.recordTime;
+  String _titleMessage = "Record $_recordTime seconds of video";
 
   @override
   void initState() {
@@ -52,23 +52,56 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(_titleMessage)),
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(title: const Text(Config.defaultTitle)),
       // You must wait until the controller is initialized before displaying the
       // camera preview. Use a FutureBuilder to display a loading spinner until the
       // controller has finished initializing.
-      body: Center(
-        child: FutureBuilder<void>(
-          future: _initializeControllerFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              // If the Future is complete, display the preview.
-              return CameraPreview(_controller);
-            } else {
-              // Otherwise, display a loading indicator.
-              return const Center(child: CircularProgressIndicator());
-            }
-          },
-        ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(_titleMessage,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                )),
+          ),
+          SizedBox(
+            child: TextField(
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+              textAlign: TextAlign.center,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Record time (number only)',
+              ),
+              onChanged: (text) async {
+                setState(() {
+                  _recordTime = int.parse(text);
+                  _titleMessage = "Record $_recordTime seconds of video";
+                  print(_recordTime);
+                });
+              },
+              maxLines: 1,
+              minLines: 1,
+            ),
+          ),
+          FutureBuilder<void>(
+            future: _initializeControllerFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                // If the Future is complete, display the preview.
+                return CameraPreview(_controller);
+              } else {
+                // Otherwise, display a loading indicator.
+                return const Center(child: CircularProgressIndicator());
+              }
+            },
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         // Provide an onPressed callback.
@@ -83,10 +116,10 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             setState(() {
               _titleMessage = Config.message_recording;
             });
-            for (var i = 0; i < Config.recordTime; i++) {
+            for (var i = 0; i < _recordTime; i++) {
               setState(() {
                 _titleMessage =
-                    "${Config.message_recording} ${Config.recordTime - i}";
+                    "${Config.message_recording} ${_recordTime - i}";
               });
               await Future.delayed(const Duration(seconds: 1));
             }
@@ -111,7 +144,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
             File(_video.path).deleteSync();
             setState(() {
-              _titleMessage = Config.defaultAppBarTitle;
+              _titleMessage = "Record $_recordTime seconds of video";
             });
 
             if (!mounted) return;

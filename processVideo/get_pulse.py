@@ -9,7 +9,6 @@ import numpy as np
 import datetime
 import os
 
-# TODO: work on serial port comms, if anyone asks for it
 # from serial import Serial
 import socket
 import sys
