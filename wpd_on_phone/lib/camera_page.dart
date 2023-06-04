@@ -108,9 +108,6 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             // _encoder.addFile(File(_video.path));
             // _encoder.close();
             // _channel.sink.add(File(_video.path + ".zip").readAsBytesSync());
-            Socket _socket = await Socket.connect(
-                Config.serverIP, Config.serverPort,
-                timeout: const Duration(seconds: Config.serverTimeout));
 
             File(_video.path).deleteSync();
             setState(() {

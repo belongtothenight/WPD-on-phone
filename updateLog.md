@@ -25,3 +25,6 @@
     2. Remove following files, "processors_noopenmdao.dart".
 11. Able to record and save video now.
 12. Tested server on local machine.
+    1. Unable to connect to it from another machine within the same network.
+    2. Focus on file processing first.
+13. Able to obtain pulse from video file.
