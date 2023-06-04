@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-
+import 'package:gallery_saver/gallery_saver.dart';
+import 'dart:io';
+import 'config.dart';
 // A screen that allows users to take a picture using a given camera.
 
 class TakePictureScreen extends StatefulWidget {
@@ -18,6 +20,7 @@ class TakePictureScreen extends StatefulWidget {
 class TakePictureScreenState extends State<TakePictureScreen> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
+  String _titleMessage = Config.defaultAppBarTitle;
 
   @override
   void initState() {
@@ -28,7 +31,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       // Get a specific camera from the list of available cameras.
       widget.camera,
       // Define the resolution to use.
-      ResolutionPreset.medium,
+      ResolutionPreset.max,
     );
 
     // Next, initialize the controller. This returns a Future.
@@ -45,7 +48,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Take a picture')),
+      appBar: AppBar(title: Text(_titleMessage)),
       // You must wait until the controller is initialized before displaying the
       // camera preview. Use a FutureBuilder to display a loading spinner until the
       // controller has finished initializing.
@@ -62,6 +65,48 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             }
           },
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        // Provide an onPressed callback.
+        onPressed: () async {
+          // Take the Picture in a try / catch block. If anything goes wrong,
+          // catch the error.
+          try {
+            // Ensure that the camera is initialized.
+            await _initializeControllerFuture;
+
+            await _controller.startVideoRecording();
+            setState(() {
+              _titleMessage = Config.message_recording;
+            });
+            for (var i = 0; i < Config.sleepTime; i++) {
+              setState(() {
+                _titleMessage =
+                    "${Config.message_recording} ${Config.sleepTime - i}";
+              });
+              await Future.delayed(const Duration(seconds: 1));
+            }
+            final video = await _controller.stopVideoRecording();
+            setState(() {
+              _titleMessage = Config.message_stopped;
+            });
+            await GallerySaver.saveVideo(video.path);
+            setState(() {
+              _titleMessage = Config.message_saved;
+            });
+            File(video.path).deleteSync();
+            await Future.delayed(const Duration(seconds: 1));
+            setState(() {
+              _titleMessage = Config.defaultAppBarTitle;
+            });
+
+            if (!mounted) return;
+          } catch (e) {
+            // If an error occurs, log the error to the console.
+            print(e);
+          }
+        },
+        child: const Icon(Icons.videocam_rounded),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -89,29 +134,5 @@ class TakePictureScreenState extends State<TakePictureScreen> {
         ],
       ),
     );
-    // floatingActionButton: FloatingActionButton(
-    //   // Provide an onPressed callback.
-    //   onPressed: () async {
-    //     // Take the Picture in a try / catch block. If anything goes wrong,
-    //     // catch the error.
-    //     try {
-    //       // Ensure that the camera is initialized.
-    //       await _initializeControllerFuture;
-
-    //       // Attempt to take a picture and get the file `image`
-    //       // where it was saved.
-    //       // final image = await _controller.takePicture();
-    //       // final path = image.path;
-    //       // final bytes = await File(path).readAsBytes();
-    //       // final img.Image image = img.decodeImage(bytes);
-
-    //       if (!mounted) return;
-    //     } catch (e) {
-    //       // If an error occurs, log the error to the console.
-    //       print(e);
-    //     }
-    //   },
-    //   child: const Icon(Icons.camera_alt),
-    // ),
   }
 }

@@ -23,3 +23,4 @@
 10. Change methodology to offline processing.
     1. Abandon following packages, "google_ml_kit", "camera_camera", "ffi", "opencv_4".
     2. Remove following files, "processors_noopenmdao.dart".
+11. Able to record and save video now.
