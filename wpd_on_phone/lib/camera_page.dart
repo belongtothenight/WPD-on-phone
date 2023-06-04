@@ -127,7 +127,8 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             setState(() {
               _titleMessage = Config.message_stopped;
             });
-            await GallerySaver.saveVideo(_video.path);
+            await GallerySaver.saveVideo(_video.path,
+                albumName: Config.defaultAlbum);
             setState(() {
               _titleMessage = Config.message_sending;
             });

@@ -1,6 +1,7 @@
 class Config {
   static const int cameraNum = 1; // 1 is front camera, 0 is back camera
   static const int recordTime = 10; // seconds
+  static const String defaultAlbum = "WPD_on_Phone";
   static const String defaultTitle = "WPD on Phone";
   // static const String message_default = "Record $recordTime seconds of video";
   static const String message_recording = "Recording...";
