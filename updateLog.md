@@ -35,3 +35,4 @@
 17. Remove not needed components.
     1. Audio while recording.
     2. Bottom navigation bar.
+18. Found a sucessful method to upload file from client side to python server. Details in ```./server/README.md```.

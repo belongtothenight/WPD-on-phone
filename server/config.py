@@ -1,6 +1,6 @@
 class Config:
     def __init__(self) -> None:
-        self.serverIP = "localhost"
+        self.serverIP = "192.168.171.169"
         self.serverPort = 8080
         self.storeDir = "./videos/"
         self.receiveFileNameSize = 8
