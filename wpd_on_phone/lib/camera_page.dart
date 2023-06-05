@@ -1,4 +1,5 @@
 // import 'dart:html';
+import 'package:archive/archive_io.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/services.dart';
@@ -7,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'dart:convert';
 import 'package:path/path.dart';
-// import 'package:file_picker/file_picker.dart';
+import 'package:file_picker/file_picker.dart';
 // import 'package:archive/archive.dart';
 import 'dart:io';
 import 'config.dart';
@@ -135,24 +136,24 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             setState(() {
               _titleMessage = Config.message_stopped;
             });
-            await GallerySaver.saveVideo(_video.path,
-                albumName: Config.defaultAlbum);
-            setState(() {
-              _titleMessage = Config.message_sending;
-            });
 
+            // ! This is the code to send the video to server! Buggy
             var url =
                 Uri.parse('${Config.serverLink}/${basename(_video.path)}');
             var request = http.MultipartRequest('POST', url);
 
-            // ! This is the code to send the video to server! Buggy
-            request.files
-                .add(await http.MultipartFile.fromPath('file', _video.path));
-            // final httpVideo = http.MultipartFile.fromBytes(
-            //     basename(_video.path), await File(_video.path).readAsBytes(),
-            //     contentType: MediaType('video', 'mp4'),
-            //     filename: basename(_video.path));
-            // request.files.add(httpVideo);
+            // * 1
+            // request.files
+            //     .add(await http.MultipartFile.fromPath('file', _video.path));
+            // * 2
+            // request.files.add(await http.MultipartFile.fromPath(
+            //     'file', File(_video.path).path));
+            // * 3
+            final httpVideo = http.MultipartFile.fromBytes(
+                basename(_video.path), await File(_video.path).readAsBytes(),
+                contentType: MediaType('video', 'mp4'),
+                filename: basename(_video.path));
+            request.files.add(httpVideo);
 
             var res = await request.send();
             if (res.statusCode == 200) {
@@ -164,6 +165,12 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                 _titleMessage = "Error: ${res.statusCode}";
               });
             }
+
+            var response = await GallerySaver.saveVideo(_video.path,
+                albumName: Config.defaultAlbum);
+            setState(() {
+              _titleMessage = Config.message_sending;
+            });
 
             File(_video.path).deleteSync();
             setState(() {

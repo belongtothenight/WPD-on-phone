@@ -72,6 +72,8 @@ class HTTPRequestHandler(server.SimpleHTTPRequestHandler):
 
         file_length = int(self.headers["Content-Length"])
         with open(filename, "wb") as output_file:
+            print(self.rfile)
+            print(self.rfile.read(file_length))
             output_file.write(self.rfile.read(file_length))
         self.send_response(201, "Created")
         self.end_headers()
