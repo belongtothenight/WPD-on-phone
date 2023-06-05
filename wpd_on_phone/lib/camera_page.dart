@@ -1,7 +1,12 @@
+// import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter/services.dart';
 import 'package:gallery_saver/gallery_saver.dart';
-// import 'package:path/path.dart';
+import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
+import 'dart:convert';
+import 'package:path/path.dart';
 // import 'package:file_picker/file_picker.dart';
 // import 'package:archive/archive.dart';
 import 'dart:io';
@@ -70,6 +75,8 @@ class TakePictureScreenState extends State<TakePictureScreen> {
           ),
           SizedBox(
             child: TextField(
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              keyboardType: TextInputType.number,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
@@ -134,15 +141,29 @@ class TakePictureScreenState extends State<TakePictureScreen> {
               _titleMessage = Config.message_sending;
             });
 
-            // final String fileName = _video.path.split("/").last;
-            // _channel.sink.add(fileName);
-            // final int fileSize = await _video.length();
-            // _channel.sink.add(fileSize);
-            // final _encoder = ZipFileEncoder();
-            // _encoder.create(_video.path + ".zip");
-            // _encoder.addFile(File(_video.path));
-            // _encoder.close();
-            // _channel.sink.add(File(_video.path + ".zip").readAsBytesSync());
+            var url =
+                Uri.parse('${Config.serverLink}/${basename(_video.path)}');
+            var request = http.MultipartRequest('POST', url);
+
+            // ! This is the code to send the video to server! Buggy
+            request.files
+                .add(await http.MultipartFile.fromPath('file', _video.path));
+            // final httpVideo = http.MultipartFile.fromBytes(
+            //     basename(_video.path), await File(_video.path).readAsBytes(),
+            //     contentType: MediaType('video', 'mp4'),
+            //     filename: basename(_video.path));
+            // request.files.add(httpVideo);
+
+            var res = await request.send();
+            if (res.statusCode == 200) {
+              setState(() {
+                _titleMessage = Config.message_sent;
+              });
+            } else {
+              setState(() {
+                _titleMessage = "Error: ${res.statusCode}";
+              });
+            }
 
             File(_video.path).deleteSync();
             setState(() {

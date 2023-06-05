@@ -36,3 +36,4 @@
     1. Audio while recording.
     2. Bottom navigation bar.
 18. Found a sucessful method to upload file from client side to python server. Details in ```./server/README.md```.
+19. Can now sucessfully transmit video file, but the file will be corrupted.
