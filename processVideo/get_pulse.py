@@ -26,7 +26,8 @@ class getPulseApp(object):
     over time, and the detected person's pulse is estimated.
     """
 
-    def __init__(self, args):
+    # def __init__(self, args):
+    def __init__(self):
         # Imaging device - must be a connected camera (not an ip camera or mjpeg
         # stream)
         # serial = args.serial
@@ -217,20 +218,8 @@ class getPulseApp(object):
         self.key_handler()
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Webcam pulse detector.")
-    parser.add_argument(
-        "--serial", default=None, help="serial port destination for bpm data"
-    )
-    parser.add_argument(
-        "--baud", default=None, help="Baud rate for serial transmission"
-    )
-    parser.add_argument(
-        "--udp", default=None, help="udp address:port destination for bpm data"
-    )
-
-    args = parser.parse_args()
-    App = getPulseApp(args)
+def start():
+    App = getPulseApp()
 
     print("started")
     vidcap = cv2.VideoCapture(config.videoPath)
@@ -267,3 +256,21 @@ if __name__ == "__main__":
                     l2_flag = False
     print()
     App.write_csv(config.savePath)
+
+
+if __name__ == "__main__":
+    # parser = argparse.ArgumentParser(description="Webcam pulse detector.")
+    # parser.add_argument(
+    #     "--serial", default=None, help="serial port destination for bpm data"
+    # )
+    # parser.add_argument(
+    #     "--baud", default=None, help="Baud rate for serial transmission"
+    # )
+    # parser.add_argument(
+    #     "--udp", default=None, help="udp address:port destination for bpm data"
+    # )
+
+    # args = parser.parse_args()
+    # App = getPulseApp(args)
+
+    start()

@@ -14,6 +14,7 @@ the path can be omitted.
 import os
 import subprocess
 from config import Config
+from get_pulse import *
 
 config = Config()
 
@@ -39,6 +40,7 @@ print("Local IP address:" + Ip)
 class HTTPRequestHandler(server.SimpleHTTPRequestHandler):
     """Extend SimpleHTTPRequestHandler to handle PUT requests"""
 
+    # * Not used
     def do_PUT(self):
         """Save a file following a HTTP PUT request"""
         filename = os.path.basename(self.path)
@@ -62,6 +64,7 @@ class HTTPRequestHandler(server.SimpleHTTPRequestHandler):
         reply_body = 'Saved "%s"\n' % filename
         self.wfile.write(reply_body.encode("utf-8"))
 
+    # * Receiving video file
     def do_POST(self):
         """Save a file following a HTTP PUT request"""
         filename = os.path.basename(self.path)
@@ -74,29 +77,38 @@ class HTTPRequestHandler(server.SimpleHTTPRequestHandler):
             self.wfile.write(reply_body.encode("utf-8"))
 
         file_length = int(self.headers["Content-Length"])
-        with open(filename, "wb") as output_file:
+        videoPath = os.path.join(config.videoPath, filename)
+        with open(videoPath, "wb") as output_file:
             string = self.rfile.read(file_length)
             # print(string)
             if config.httpBoundaryString in string:
                 # * Removing dart http boundary
-                print("Found httpStartString in POST request")
-                # print("start 1")
+                # print("Found httpStartString in POST request")
+                print("processing video: " + filename)
                 # print(string[:400])
                 string = string.split(config.httpSplitString)[1]
-                # print("start 2")
                 # print(string[:200])
-                # print("back 1")
                 # print(string[-200:])
                 string = string.split(config.httpBoundaryString)[0]
-                # print("back 2")
                 # print(string[-200:])
+                # * Saving file
                 output_file.write(string)
+                # * Triggering processVideo
+                start(videoPath)
             else:
                 print("Error: No httpStartString found in POST request")
         self.send_response(201, "Created")
         self.end_headers()
         reply_body = 'Saved "%s"\n' % filename
         self.wfile.write(reply_body.encode("utf-8"))
+        print()
+
+    # * Send connection status
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header("Content-type", "text/html")
+        self.end_headers()
+        self.wfile.write(b"<html><body><h1>Connection works!</h1></body></html>")
 
 
 if __name__ == "__main__":

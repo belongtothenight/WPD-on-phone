@@ -1,15 +1,9 @@
-// import 'dart:html';
-import 'package:archive/archive_io.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/services.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
-import 'dart:convert';
 import 'package:path/path.dart';
-import 'package:file_picker/file_picker.dart';
-// import 'package:archive/archive.dart';
 import 'dart:io';
 import 'config.dart';
 // A screen that allows users to take a picture using a given camera.
@@ -29,24 +23,20 @@ class TakePictureScreen extends StatefulWidget {
 class TakePictureScreenState extends State<TakePictureScreen> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
+  bool _notConnectedToServer = false;
   static int _recordTime = Config.recordTime;
   String _titleMessage = "Record $_recordTime seconds of video";
   String _serverLink = Config.serverLink;
+  String _connectionMessage = Config.message_notChecked;
 
   @override
   void initState() {
     super.initState();
-    // To display the current output from the Camera,
-    // create a CameraController.
     _controller = CameraController(
-      // Get a specific camera from the list of available cameras.
       widget.camera,
-      // Define the resolution to use.
       ResolutionPreset.medium,
       enableAudio: false,
     );
-
-    // Next, initialize the controller. This returns a Future.
     _initializeControllerFuture = _controller.initialize();
   }
 
@@ -62,11 +52,9 @@ class TakePictureScreenState extends State<TakePictureScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(title: const Text(Config.defaultTitle)),
-      // You must wait until the controller is initialized before displaying the
-      // camera preview. Use a FutureBuilder to display a loading spinner until the
-      // controller has finished initializing.
       body: Column(
         children: [
+          Spacer(flex: 1),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(Config.title_server,
@@ -75,8 +63,49 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                   fontSize: 25,
                 )),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Spacer(flex: 1),
+              TextButton(
+                  onPressed: () {
+                    // * Test connection with server
+                    var httpClient = http.Client();
+                    var request = http.Request('GET', Uri.parse(_serverLink));
+                    var response = httpClient.send(request);
+                    response.then((value) {
+                      if (value.statusCode == 200) {
+                        setState(() {
+                          _notConnectedToServer = false;
+                          _connectionMessage = Config.message_connected;
+                        });
+                      } else {
+                        setState(() {
+                          _notConnectedToServer = true;
+                          _connectionMessage = Config.message_notConnected;
+                        });
+                      }
+                    });
+                  },
+                  child: const Text(
+                    "Test connection",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  )),
+              Spacer(flex: 8),
+              Text(_connectionMessage,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  )),
+              Spacer(flex: 1),
+            ],
+          ),
           SizedBox(
             child: TextField(
+              enabled: _notConnectedToServer,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
@@ -95,8 +124,10 @@ class TakePictureScreenState extends State<TakePictureScreen> {
               minLines: 1,
             ),
           ),
+          Container(color: Colors.blue, height: 5),
+          Spacer(flex: 1),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(10.0),
             child: Text(_titleMessage,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
@@ -139,13 +170,11 @@ class TakePictureScreenState extends State<TakePictureScreen> {
               }
             },
           ),
+          Spacer(flex: 1),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        // Provide an onPressed callback.
         onPressed: () async {
-          // Take the Picture in a try / catch block. If anything goes wrong,
-          // catch the error.
           try {
             // Ensure that the camera is initialized.
             await _initializeControllerFuture;

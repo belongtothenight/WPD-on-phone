@@ -41,3 +41,6 @@
     2. Found that with the same file transmitted through cable and through the app, the one through the app has been added a bunch of characters at the start and the end.
     3. After removing dart http boundary the video can be opened.
 20. Update app layout, include server link adjustment textfield. Fully tested.
+21. Combine code in ```./processVideo``` into ```./server``` with additional error handeling.
+    1. Code in http server can't be proporly error handeled, so additional modification is needed to prevent running into errors.
+22. Added connection tester into app, fully built, and tested.
