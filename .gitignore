@@ -25,3 +25,9 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+
+# pycache folders
+processVideo/__pycache__
+processVideo/lib/__pycache__
+server/__pycache__
+server/lib/__pycache__
