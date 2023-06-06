@@ -31,6 +31,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   late Future<void> _initializeControllerFuture;
   static int _recordTime = Config.recordTime;
   String _titleMessage = "Record $_recordTime seconds of video";
+  String _serverLink = Config.serverLink;
 
   @override
   void initState() {
@@ -66,6 +67,34 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       // controller has finished initializing.
       body: Column(
         children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(Config.title_server,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                )),
+          ),
+          SizedBox(
+            child: TextField(
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+              textAlign: TextAlign.center,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: "http://....app",
+              ),
+              onChanged: (text) async {
+                setState(() {
+                  _serverLink = text;
+                });
+              },
+              maxLines: 1,
+              minLines: 1,
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(_titleMessage,
@@ -137,26 +166,30 @@ class TakePictureScreenState extends State<TakePictureScreen> {
               _titleMessage = Config.message_stopped;
             });
 
-            // ! This is the code to send the video to server! Buggy
-            var url =
-                Uri.parse('${Config.serverLink}/${basename(_video.path)}');
+            var url = Uri.parse('${_serverLink}/${basename(_video.path)}');
             var request = http.MultipartRequest('POST', url);
 
-            // * 1
-            // request.files
-            //     .add(await http.MultipartFile.fromPath('file', _video.path));
-            // * 2
+            setState(() {
+              _titleMessage = Config.message_loadingVideo;
+            });
+            // * option 1
+            request.files
+                .add(await http.MultipartFile.fromPath('file', _video.path));
+            // * option 2
             // request.files.add(await http.MultipartFile.fromPath(
             //     'file', File(_video.path).path));
-            // * 3
-            final httpVideo = http.MultipartFile.fromBytes(
-                basename(_video.path), await File(_video.path).readAsBytes(),
-                contentType: MediaType('video', 'mp4'),
-                filename: basename(_video.path));
-            request.files.add(httpVideo);
+            // * option 3
+            // final httpVideo = http.MultipartFile.fromBytes(
+            //     basename(_video.path), await File(_video.path).readAsBytes(),
+            //     contentType: MediaType('video', 'mp4'),
+            //     filename: basename(_video.path));
+            // request.files.add(httpVideo);
 
+            setState(() {
+              _titleMessage = Config.message_sending;
+            });
             var res = await request.send();
-            if (res.statusCode == 200) {
+            if (res.statusCode == 201) {
               setState(() {
                 _titleMessage = Config.message_sent;
               });
@@ -169,7 +202,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             var response = await GallerySaver.saveVideo(_video.path,
                 albumName: Config.defaultAlbum);
             setState(() {
-              _titleMessage = Config.message_sending;
+              _titleMessage = Config.message_saved;
             });
 
             File(_video.path).deleteSync();

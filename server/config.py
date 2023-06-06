@@ -1,6 +1,6 @@
 class Config:
     def __init__(self) -> None:
-        self.serverIP = "192.168.171.169"
+        self.serverIP = "localhost"
         self.serverPort = 8080
         self.storeDir = "./videos/"
         self.receiveFileNameSize = 8
@@ -12,3 +12,5 @@ class Config:
         self.tqdmUnitScale = True
         self.tqdmUnitDivisor = 1000
         self.tqdmLeave = False
+        self.httpBoundaryString = b"--dart-http-boundary"
+        self.httpSplitString = b"\r\n\r\n"

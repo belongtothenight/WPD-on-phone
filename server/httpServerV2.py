@@ -13,6 +13,9 @@ the path can be omitted.
 """
 import os
 import subprocess
+from config import Config
+
+config = Config()
 
 try:
     import http.server as server
@@ -72,9 +75,24 @@ class HTTPRequestHandler(server.SimpleHTTPRequestHandler):
 
         file_length = int(self.headers["Content-Length"])
         with open(filename, "wb") as output_file:
-            print(self.rfile)
-            print(self.rfile.read(file_length))
-            output_file.write(self.rfile.read(file_length))
+            string = self.rfile.read(file_length)
+            # print(string)
+            if config.httpBoundaryString in string:
+                # * Removing dart http boundary
+                print("Found httpStartString in POST request")
+                # print("start 1")
+                # print(string[:400])
+                string = string.split(config.httpSplitString)[1]
+                # print("start 2")
+                # print(string[:200])
+                # print("back 1")
+                # print(string[-200:])
+                string = string.split(config.httpBoundaryString)[0]
+                # print("back 2")
+                # print(string[-200:])
+                output_file.write(string)
+            else:
+                print("Error: No httpStartString found in POST request")
         self.send_response(201, "Created")
         self.end_headers()
         reply_body = 'Saved "%s"\n' % filename
@@ -82,4 +100,6 @@ class HTTPRequestHandler(server.SimpleHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    server.test(HandlerClass=HTTPRequestHandler, bind="localhost", port=8080)
+    server.test(
+        HandlerClass=HTTPRequestHandler, bind=config.serverIP, port=config.serverPort
+    )

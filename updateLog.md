@@ -39,3 +39,5 @@
 19. Can now sucessfully transmit video file, but the file will be corrupted.
     1. It is possible to send video through curl without corruption.
     2. Found that with the same file transmitted through cable and through the app, the one through the app has been added a bunch of characters at the start and the end.
+    3. After removing dart http boundary the video can be opened.
+20. Update app layout, include server link adjustment textfield. Fully tested.
