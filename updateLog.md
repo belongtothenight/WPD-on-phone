@@ -44,3 +44,6 @@
 21. Combine code in ```./processVideo``` into ```./server``` with additional error handeling.
     1. Code in http server can't be proporly error handeled, so additional modification is needed to prevent running into errors.
 22. Added connection tester into app, fully built, and tested.
+23. Test hrv analysis code
+    1. Can't automatically save figure.
+    2. Doesn't work with threading environment.

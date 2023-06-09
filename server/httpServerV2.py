@@ -14,7 +14,11 @@ the path can be omitted.
 import os
 import subprocess
 from config import Config
-from get_pulse import *
+from get_pulse import start
+from convertHRV import ConvertHRV
+import matplotlib
+
+matplotlib.use("agg")
 
 config = Config()
 
@@ -93,14 +97,16 @@ class HTTPRequestHandler(server.SimpleHTTPRequestHandler):
                 # print(string[-200:])
                 # * Saving file
                 output_file.write(string)
-                # * Triggering processVideo
-                start(videoPath)
             else:
                 print("Error: No httpStartString found in POST request")
         self.send_response(201, "Created")
         self.end_headers()
         reply_body = 'Saved "%s"\n' % filename
         self.wfile.write(reply_body.encode("utf-8"))
+        # * Triggering processVideo
+        bpms = start(videoPath)
+        # * Triggering ConvertHRV
+        ConvertHRV(bpms)
         print()
 
     # * Send connection status

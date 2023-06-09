@@ -262,6 +262,7 @@ def start(videoPath):
                     l2_flag = False
     # print()
     App.write_csv(config.csvPath)
+    return App.processor.bpms
 
 
 if __name__ == "__main__":

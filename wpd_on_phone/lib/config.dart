@@ -15,7 +15,6 @@ class Config {
   static const String message_notChecked = "Not checked";
   static const String message_connected = "Connected to server";
   static const String message_notConnected = "Try new server link below";
-  static const String serverLink =
-      "https://0746-2001-b400-e38a-f218-f95e-4378-2b5e-f3a5.ngrok-free.app";
+  static const String serverLink = "https://0b1f-140-135-12-195.ngrok-free.app";
   static const int serverTimeout = 5; // seconds
 }
