@@ -4,13 +4,14 @@ This repo is based on [thearn/webcam-pulse-detector](https://github.com/thearn/w
 
 ## Structure
 
-1. ```./pic```: Pictures.
-2. ```./processVideo```: BPM extracting script.
-3. ```./release```: Released software.
-4. ```./server```: Server to receive videos for BPM extraction.
-5. ```./result```: Extracted BPM data.
-6. ```./videos```: Videos for BPM extraction.
-7. ```./wpd_on_phone```: App to record and send video.
+1. ```./convertHRV```: User BPM to perform HRV analysis.
+2. ```./pic```: Pictures.
+3. ```./processVideo```: BPM extracting script.
+4. ```./release```: Released software.
+5. ```./server```: Server to receive videos for BPM extraction.
+6. ```./result```: Extracted BPM data.
+7. ```./videos```: Videos for BPM extraction.
+8. ```./wpd_on_phone```: App to record and send video.
 
 ## Android Demo
 

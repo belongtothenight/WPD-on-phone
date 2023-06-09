@@ -47,3 +47,4 @@
 23. Test hrv analysis code
     1. Can't automatically save figure.
     2. Doesn't work with threading environment.
+24. Finished hrv analysis code.

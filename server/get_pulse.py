@@ -100,21 +100,23 @@ class getPulseApp(object):
             self.selected_cam += 1
             self.selected_cam = self.selected_cam % len(self.cameras)
 
-    def write_csv(self, basepath):
+    def write_csv(self, basepath, filename):
         """
         Writes current data to a csv file
         """
         if not np.any(self.processor.bpms):
             print("No forehead found, can't write data")
             return
-        fn = "Webcam-pulse" + str(datetime.datetime.now())
-        fn = fn.replace(":", "_").replace(".", "_")
+        # fn = "Webcam-pulse" + str(datetime.datetime.now())
+        # fn = fn.replace(":", "_").replace(".", "_")
         # data = np.vstack(
         #     (self.processor.times, self.processor.samples)
         # ).T
         # np.savetxt(fn + ".csv", data, delimiter=",")
         np.savetxt(
-            os.path.join(basepath, fn + ".csv"), self.processor.bpms, delimiter=","
+            os.path.join(basepath, filename + "_bpm.csv"),
+            self.processor.bpms,
+            delimiter=",",
         )
         print("Writed csv")
 
@@ -224,7 +226,7 @@ class getPulseApp(object):
         self.key_handler()
 
 
-def start(videoPath):
+def start(videoPath, filename):
     App = getPulseApp()
 
     # print("started")
@@ -261,7 +263,7 @@ def start(videoPath):
                 except:
                     l2_flag = False
     # print()
-    App.write_csv(config.csvPath)
+    App.write_csv(config.csvPath, filename)
     return App.processor.bpms
 
 

@@ -104,9 +104,12 @@ class HTTPRequestHandler(server.SimpleHTTPRequestHandler):
         reply_body = 'Saved "%s"\n' % filename
         self.wfile.write(reply_body.encode("utf-8"))
         # * Triggering processVideo
-        bpms = start(videoPath)
+        bpms = start(videoPath, filename[:-4])
         # * Triggering ConvertHRV
-        ConvertHRV(bpms)
+        path = os.path.join(config.csvPath, filename[:-4])
+        c = ConvertHRV(bpms)
+        c.plot_distrib(path)
+        c.plot_poincare(path)
         print()
 
     # * Send connection status
