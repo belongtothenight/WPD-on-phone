@@ -8,6 +8,9 @@ Credit:
 1. BPM Extraction is based on [thearn/webcam-pulse-detector](https://github.com/thearn/webcam-pulse-detector/tree/no_openmdao).
 2. HRV Analysis is based on [Exploring Heart Rate Variability using Python](https://www.kaggle.com/code/stetelepta/exploring-heart-rate-variability-using-python) and [hrv-analysis library](https://github.com/Aura-healthcare/hrv-analysis).
 
+## Android Demo
+
+![](pic/android_finished.png)
 
 ## Structure
 
@@ -20,9 +23,7 @@ Credit:
 7. ```./videos```: Videos for BPM extraction.
 8. ```./wpd_on_phone```: App to record and send video.
 
-## Android Demo
 
-![](pic/android_finished.png)
 
 ## Links
 
