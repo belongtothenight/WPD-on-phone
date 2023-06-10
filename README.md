@@ -12,6 +12,7 @@ Credit:
 
 ![](multimedia/demo.png)
 In this video, only the BPM data was generated, but for the newest code, all three files will be generated like the above picture.
+If the following GIF is not displayed, please go to [this folder to download](https://github.com/belongtothenight/WPD-on-phone/blob/main/multimedia/wpd_on_phone.mp4), or go to [YouTube to watch it](https://youtu.be/fCiewFY7d_U).
 ![](multimedia/wpd_on_phone.gif)
 
 ## Software Infrastructure
