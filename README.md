@@ -12,7 +12,7 @@ Credit:
 
 ![](multimedia/demo.png)
 In this video, only the BPM data was generated, but for the newest code, all three files will be generated like the above picture.
-![](multimedia/wpd_on_phone.mp4)
+![](multimedia/wpd_on_phone.gif)
 
 ## Software Infrastructure
 
