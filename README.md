@@ -18,9 +18,9 @@ Credit:
 2. ```./pic```: Pictures.
 3. ```./processVideo```: BPM extracting script.
 4. ```./release```: Released software.
-5. ```./server```: Server to receive videos for BPM extraction.
-6. ```./result```: Extracted BPM data.
-7. ```./videos```: Videos for BPM extraction.
+5. ```./server```: Server to receive videos for processing, includes ```./processVideo```, and ```./convertHRV```.
+6. ```./result```: Extracted data.
+7. ```./videos```: Videos for processing.
 8. ```./wpd_on_phone```: App to record and send video.
 
 
