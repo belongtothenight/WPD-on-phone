@@ -2,7 +2,7 @@
 
 This repo creates an app service to process app-sent videos and performs BPM extraction and HRV analysis on locally hosted and tunneled servers.
 
-![](pic/service_flowchart_n2.png)
+![](multimedia/service_flowchart_n2.png)
 
 Credit: 
 1. BPM Extraction is based on [thearn/webcam-pulse-detector](https://github.com/thearn/webcam-pulse-detector/tree/no_openmdao).
@@ -10,7 +10,9 @@ Credit:
 
 ## Demo
 
-![](pic/demo.png)
+![](multimedia/demo.png)
+In this video, only the BPM data was generated, but for the newest code, all three files will be generated like the above picture.
+![](multimedia/wpd_on_phone.mp4)
 
 ## Software Infrastructure
 
@@ -21,7 +23,7 @@ Credit:
 ## Structure
 
 1. ```./convertHRV```: Use BPM to perform HRV analysis.
-2. ```./pic```: Pictures.
+2. ```./multimedia```: Pictures and Videos for display.
 3. ```./processVideo```: BPM extracting script.
 4. ```./release```: Released software.
 5. ```./server```: Server to receive videos for processing, including `./processVideo`, and ```./convertHRV```.
