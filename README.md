@@ -1,6 +1,6 @@
 # WPD-on-phone
 
-This repo creates an app service to process app-sent videos and performs BPM extraction and HRV analysis on local hosted and tunneled servers.
+This repo creates an app service to process app-sent videos and performs BPM extraction and HRV analysis on locally hosted and tunneled servers.
 
 ![](pic/service_flowchart_n2.png)
 
@@ -12,13 +12,19 @@ Credit:
 
 ![](pic/demo.png)
 
+## Software Infrastructure
+
+1. [Flutter](https://flutter.dev/) with [dart](https://dart.dev/) for app development.
+2. [Ngrok](https://ngrok.com/) for tunneling.
+3. [Python 3.10.8](https://www.python.org/downloads/release/python-3108/) for server hosting, video processing, and data extraction.
+
 ## Structure
 
 1. ```./convertHRV```: Use BPM to perform HRV analysis.
 2. ```./pic```: Pictures.
 3. ```./processVideo```: BPM extracting script.
 4. ```./release```: Released software.
-5. ```./server```: Server to receive videos for processing, includes ```./processVideo```, and ```./convertHRV```.
+5. ```./server```: Server to receive videos for processing, including `./processVideo`, and ```./convertHRV```.
 6. ```./result```: Extracted data.
 7. ```./videos```: Videos for processing.
 8. ```./wpd_on_phone```: App to record and send video.
