@@ -1,6 +1,6 @@
 # WPD-on-phone
 
-This repo creates an app service to process user-sent videos and performs BPM extraction and HRV analysis on local hosted and tunneled servers.
+This repo creates an app service to process app-sent videos and performs BPM extraction and HRV analysis on local hosted and tunneled servers.
 
 ![](pic/service_flowchart_n2.png)
 
