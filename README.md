@@ -4,7 +4,7 @@ This repo is based on [thearn/webcam-pulse-detector](https://github.com/thearn/w
 
 ## Structure
 
-1. ```./convertHRV```: User BPM to perform HRV analysis.
+1. ```./convertHRV```: Use BPM to perform HRV analysis.
 2. ```./pic```: Pictures.
 3. ```./processVideo```: BPM extracting script.
 4. ```./release```: Released software.

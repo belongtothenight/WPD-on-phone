@@ -44,6 +44,9 @@ class ConvertHRV:
         self.nn_intervals_list = nn_intervals_list
         # plot_distrib(nn_intervals_list)
         # plot_poincare(nn_intervals_list)
+        # print(self.interpolated_nn_intervals)
+        plot_psd(interpolated_nn_intervals, method="welch")
+        plot_psd(interpolated_nn_intervals, method="lomb")
 
     def plot_distrib(self, path):
         plt.clf()
