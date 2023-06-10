@@ -14,7 +14,7 @@ Credit:
 
 ## Software Infrastructure
 
-1. [Flutter](https://flutter.dev/) with [dart](https://dart.dev/) for app development.
+1. [Flutter](https://flutter.dev/) with [dart 3.0.0](https://dart.dev/) for app development.
 2. [Ngrok](https://ngrok.com/) for tunneling.
 3. [Python 3.10.8](https://www.python.org/downloads/release/python-3108/) for server hosting, video processing, and data extraction.
 
